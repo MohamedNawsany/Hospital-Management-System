@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: hospitalll_db  # The database your app will use
+    ports:
+      - "3306:3306"  # Expose MySQL port
+    networks:
+      - hospital-network
+
+  hospital:
+    build: .
+    container_name: hospital-container
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql  # Host is set to the MySQL service name
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=12345
+      - MYSQL_DATABASE=hospitalll_db
+    networks:
+      - hospital-network
+    ports:
+      - "5000:5000"  # Example port for your app
+    command: python hospital.py
+
+networks:
+  hospital-network:
+    driver: bridge
+
