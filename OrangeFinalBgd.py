@@ -483,9 +483,9 @@ if __name__ == "__main__":
 
 
 conn = mysql.connector.connect(
-    host="mysql",  # Keep as 'mysql' since it's inside Docker network
+    host="localhost",  # Use 'localhost' to connect from your local machine
     user="root",
     password="12345",
     database="OrangeFinal",
-    port=3307  # Update to match the mapped port
+    port=3307  # Port you've mapped to the container
 )
