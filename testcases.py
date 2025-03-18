@@ -237,5 +237,3 @@ def test_hospital_database_singleton():
     db2 = HospitalDatabase()
     assert db1 is db2  # Both instances should be the same
 
-
-
