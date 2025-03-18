@@ -1,0 +1,101 @@
+@startuml design
+
+abstract class Person {
+    - id: int
+    - name: str
+    - birth_year: int
+    - gender: str
+    - phone_number: str
+    - nationality: str
+    + __init__(id, name, birth_year, gender, phone_number, nationality)
+    + display_info()
+    + calculate_age()
+}
+
+abstract class Employee {
+    - salary: float
+    - department: str
+    + __init__(id, name, birth_year, gender, phone_number, nationality, salary, department)
+    + perform_duties()
+    + display_info()
+}
+
+class Doctor {
+    - specialization: str
+    + __init__(id, name, birth_year, gender, phone_number, nationality, salary, department, specialization)
+    + diagnose_patient()
+    + write_prescription(patient, medication)
+    + perform_duties()
+    + display_info()
+}
+
+class Patient {
+    - medical_history: list
+    - prescriptions: list
+    + __init__(id, name, birth_year, gender, phone_number, nationality, medical_history)
+    + add_prescription(prescription)
+    + display_info()
+}
+
+class DataEntry {
+    + __init__(id, name, birth_year, gender, phone_number, salary, department, nationality)
+    + add_record(person)
+    + delete_record(person)
+    + perform_duties()
+    + print_prescription(prescription_id)
+}
+
+class Manager {
+    + __init__(id, name, birth_year, gender, phone_number, salary, department, nationality)
+    + perform_duties()
+    + display_info()
+}
+
+class Nurse {
+    - specialty: str
+    + __init__(id, name, birth_year, gender, phone_number, salary, department, nationality, specialty)
+    + assist_doctor(doctor)
+    + check_vitals(patient)
+    + perform_duties()
+    + display_info()
+}
+
+class Prescription {
+    - doctor: Doctor
+    - patient: Patient
+    - medication: str
+    - date_issued: datetime
+    + __init__(doctor, patient, medication)
+    + display_prescription()
+}
+
+class PrescriptionFactory {
+    + create_prescription(doctor, patient, medication)
+}
+
+class HospitalDatabase {
+    - conn: mysql.connector.MySQLConnection
+    - cursor: mysql.connector.cursor
+    + __new__()
+    + connect()
+    + check_connection()
+    + insert_data(table, data)
+    + fetch_data(table)
+    + close_connection()
+}
+
+Person <|-- Employee
+Employee <|-- Doctor
+Employee <|-- DataEntry
+Employee <|-- Manager
+Employee <|-- Nurse
+Person <|-- Patient
+Doctor "1" -- "0..*" Prescription
+Patient "1" -- "0..*" Prescription
+DataEntry "1" -- "0..*" Prescription
+PrescriptionFactory "1" -- "0..*" Prescription
+HospitalDatabase -- "1" Patient
+HospitalDatabase -- "1" Employee
+
+@enduml
+
