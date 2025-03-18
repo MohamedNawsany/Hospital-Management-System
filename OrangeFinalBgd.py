@@ -481,3 +481,11 @@ if __name__ == "__main__":
     main()
     main2()
 
+
+conn = mysql.connector.connect(
+    host="mysql",  # Keep as 'mysql' since it's inside Docker network
+    user="root",
+    password="12345",
+    database="OrangeFinal",
+    port=3307  # Update to match the mapped port
+)
